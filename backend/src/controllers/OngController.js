@@ -8,9 +8,9 @@ module.exports = {
 
     async index (req, res){
     //Selecionar todos os campos e registros da tabela 'ongs'
-    const ongs = await connection('ongs').select('*');
+        const ongs = await connection('ongs').select('*');
     
-    return res.json(ongs);
+        return res.json(ongs);
     },
 
 
@@ -18,22 +18,24 @@ module.exports = {
         //Para acessar algum dado da requisitado no corpo
     // Armazenar cada dado em uma variavel separada por isso {...} (desestruturação)
     //Para evitar que o usuario envia um dado que nao pode
-    const { name, email, whatsapp, city, uf } = req.body;
+        const { name, email, whatsapp, city, uf } = req.body;
 
-    //Gerando aleatoriamente caracteres para o 'id'.... Vai gerar 4 bytes de caractere hexadecimais
-    const id = crypto.randomBytes(4).toString('HEX');
+        //Gerando aleatoriamente caracteres para o 'id'.... Vai gerar 4 bytes de caractere hexadecimais
+        const id = crypto.randomBytes(4).toString('HEX');
 
-    //Inserindo dados na table
-    //Quando node chegar nesse code, ele vai aguarda até ser finalizado
-    await connection('ongs').insert({
-        id,
-        name,
-        email,
-        whatsapp,
-        city,
-        uf
-    })
+        //Inserindo dados na table
+        //Quando node chegar nesse code, ele vai aguarda até ser finalizado
+        await connection('ongs').insert({
+            id,
+            name,
+            email,
+            whatsapp,
+            city,
+            uf
+        })
 
-    return res.json({id});
-    }
+        return res.json({ id });
+    },
+
+
 }
